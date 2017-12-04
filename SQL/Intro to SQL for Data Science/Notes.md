@@ -1,4 +1,4 @@
-## Lesson 1
+# Lesson - 1
 
 * SQL, which stands for Structured Query Language, is a language for interacting with data stored in something called a relational database.
 * You can think of a relational database as a collection of tables. A table is just a set of rows and columns, like a spreadsheet, which 	represents exactly one type of **entity**.
@@ -13,12 +13,12 @@
 
 ### Comments
 
-```
+```sql
 -- Comments line
 ```
 
 ### Select a string to print 		
-```
+```sql
 -- Try running me!
 SELECT 'DataCamp <3 SQL'
 AS result;
@@ -26,12 +26,44 @@ AS result;
 
 ### Select a single column from a database
 
-```
+```sql
 SELECT name FROM people;
 ```
 
 ### Select multiple columns from a database
 
+```sql
+SELECT name, birthdate
+FROM people; 
+
+-- all columns 
+SELECT * 
+FROM people;
 ```
-SELECT 
+
+### Select all the unique values from a column
+
+```sql
+SELECT DISTINCT language
+FROM films;
 ```
+
+### Count the number of rows in a table 
+
+```sql
+SELECT COUNT(*)
+FROM people;
+
+-- Count the number of non-missing values in a particular column
+SELECT COUNT(birthdate)
+FROM people;
+
+-- Count unique birthdate 
+SELECT COUNT(DISTINCT birthdate)
+FROM people;
+
+```
+
+
+
+# Lesson - 2
