@@ -72,12 +72,14 @@ FROM people;
 
 	In SQL, the WHERE keyword allows you to filter based on both text and numeric values in a table. There are a few different comparison operators you can use:
 
+### WHERE
+
 * = equal
 * <> not equal
 * < less than
 * > greater than
-* <= less than or equal to
-* >= greater than or equal to
+*  <= less than or equal to
+*  >= greater than or equal to
 
 **Use <> and not != for the not equal operator, as per the SQL standard.**
 
@@ -94,3 +96,58 @@ SELECT title
 FROM films
 WHERE release_year > 2000;
 ```
+
+### WHERE AND
+
+```
+SELECT title, release_year
+FROM films
+WHERE language='Spanish'
+AND release_year < 2000;
+```
+
+```
+SELECT title
+FROM films
+WHERE release_year > 1994 AND < 2000;
+```
+
+```
+SELECT *
+FROM films
+WHERE language='Spanish'
+AND release_year > 2000
+AND release_year< 2010;
+```
+
+
+### WHERE AND OR
+
+
+For example, the following returns all films released in either 1994 or 2000:
+
+```
+SELECT title
+FROM films
+WHERE release_year = 1994
+OR release_year = 2000;
+```
+
+Note that you need to specify the column for every OR condition, so the following is invalid:
+
+```
+SELECT title
+FROM films
+WHERE release_year = 1994 OR 2000;
+```
+
+When combining AND and OR, be sure to enclose the individual clauses in parentheses, like so:
+
+```
+SELECT title
+FROM films
+WHERE (release_year = 1994 OR release_year = 1995)
+AND (certification = 'PG' OR certification = 'R');
+```
+Otherwise, due to SQL's precedence rules, you may not get the results you're expecting!
+
