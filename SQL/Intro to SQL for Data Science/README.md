@@ -67,3 +67,30 @@ FROM people;
 
 
 # Lesson - 2
+
+## Filtering results
+
+	In SQL, the WHERE keyword allows you to filter based on both text and numeric values in a table. There are a few different comparison operators you can use:
+
+* = equal
+* <> not equal
+* < less than
+* > greater than
+* <= less than or equal to
+* >= greater than or equal to
+
+**Use <> and not != for the not equal operator, as per the SQL standard.**
+
+Ex-
+
+```
+SELECT title 
+FROM films
+WHERE title = 'Metropolis';
+```
+
+```
+SELECT title 
+FROM films
+WHERE release_year > 2000;
+```
