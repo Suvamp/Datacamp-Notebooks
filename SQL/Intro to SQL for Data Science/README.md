@@ -86,13 +86,13 @@ FROM people;
 
 Ex-
 
-```
+```sql
 SELECT title 
 FROM films
 WHERE title = 'Metropolis';
 ```
 
-```
+```sql
 SELECT title 
 FROM films
 WHERE release_year > 2000;
@@ -100,20 +100,20 @@ WHERE release_year > 2000;
 
 ### WHERE AND
 
-```
+```sql
 SELECT title, release_year
 FROM films
 WHERE language='Spanish'
 AND release_year < 2000;
 ```
 
-```
+```sql
 SELECT title
 FROM films
 WHERE release_year > 1994 AND < 2000;
 ```
 
-```
+```sql
 SELECT *
 FROM films
 WHERE language='Spanish'
@@ -127,7 +127,7 @@ AND release_year< 2010;
 
 For example, the following returns all films released in either 1994 or 2000:
 
-```
+```sql
 SELECT title
 FROM films
 WHERE release_year = 1994
@@ -136,7 +136,7 @@ OR release_year = 2000;
 
 Note that you need to specify the column for every OR condition, so the following is invalid:
 
-```
+```sql
 SELECT title
 FROM films
 WHERE release_year = 1994 OR 2000;
@@ -144,7 +144,7 @@ WHERE release_year = 1994 OR 2000;
 
 When combining AND and OR, be sure to enclose the individual clauses in parentheses, like so:
 
-```
+```sql
 SELECT title
 FROM films
 WHERE (release_year = 1994 OR release_year = 1995)
@@ -154,7 +154,7 @@ Otherwise, due to SQL's precedence rules, you may not get the results you're exp
 
 Ex- 
 
-```
+```sql
 SELECT title, release_year
 FROM films
 WHERE (release_year >= 1990 AND release_year <= 1999)
@@ -165,7 +165,7 @@ AND (gross > 2000000)
 
 ### BETWEEN
 
-```
+```sql
 SELECT title
 FROM films
 WHERE release_year >= 1994
@@ -174,7 +174,7 @@ AND release_year <= 2000;
 
 Checking for ranges like this is very common, so in SQL the BETWEEN keyword provides a useful shorthand for filtering values within a specified range. This query is equivalent to the one above:
 
-```
+```sql
 SELECT title
 FROM films
 WHERE release_year
@@ -187,7 +187,7 @@ It's important to remember that BETWEEN is inclusive, meaning the beginning and 
 
 WHERE is very useful for filtering results. However, if you want to filter based on many conditions, WHERE can get unwieldy. For example:
 
-```
+```sql
 SELECT name
 FROM kids
 WHERE age = 2
@@ -201,7 +201,7 @@ Enter the IN operator! The IN operator allows you to specify multiple values in 
 
 So, the above example would become simply:
 
-```
+```sql
 SELECT name
 FROM kids
 WHERE age IN (2, 4, 6, 8, 10);
@@ -212,7 +212,7 @@ WHERE age IN (2, 4, 6, 8, 10);
 
 In SQL, NULL represents a missing or unknown value. You can check for NULL values using the expression IS NULL. For example, to count the number of missing birth dates in the people table:
 
-```
+```sql
 SELECT COUNT(*)
 FROM people
 WHERE birthdate IS NULL;
@@ -224,7 +224,7 @@ Sometimes, you'll want to filter out missing values so you only get results whic
 
 For example, this query gives the names of all people whose birth dates are not missing in the people table.
 
-```
+```sql
 SELECT name
 FROM people
 WHERE birthdate IS NOT NULL;
@@ -237,7 +237,7 @@ In SQL, the LIKE operator can be used in a WHERE clause to search for a pattern 
 
 The % wildcard will match zero, one, or many characters in text. For example, the following query matches companies like 'Data', 'DataC' 'DataCamp', 'DataMind', and so on:
 
-```
+```sql
 SELECT name
 FROM companies
 WHERE name LIKE 'Data%';
@@ -245,7 +245,7 @@ WHERE name LIKE 'Data%';
 
 The _ wildcard will match a single character. For example, the following query matches companies like 'DataCamp', 'DataComp', and so on:
 
-```
+```sql
 SELECT name
 FROM companies
 WHERE name LIKE 'DataC_mp';
@@ -255,13 +255,13 @@ You can also use the NOT LIKE operator to find records that don't match the patt
 
 	Names of people whose names have 'r' as the second letter. The pattern you need is '_r%'.
 
-```
+```sql
 SELECT name
 FROM people
 WHERE name LIKE '_r%';
 ```
 
-```
+```sql
 SELECT name
 FROM people
 WHERE name NOT LIKE 'A%';
@@ -274,21 +274,21 @@ WHERE name NOT LIKE 'A%';
 
 For example,
 
-```
+```sql
 SELECT AVG(budget)
 FROM films;
 ```
 
 gives you the average value from the budget column of the films table. Similarly, the MAX function returns the highest budget:
 
-```
+```sql
 SELECT MAX(budget)
 FROM films;
 ```
 
 The SUM function returns the result of adding up the numeric values in a column:
 
-```
+```sql
 SELECT SUM(budget)
 FROM films;
 ```
@@ -297,7 +297,7 @@ You can probably guess what the MIN function does! Now it's your turn to try out
 
 ### Combining aggregate functions with WHERE
 
-```
+```sql
 SELECT SUM(budget)
 FROM films
 WHERE release_year >= 2010;
@@ -315,7 +315,7 @@ SELECT (4 * 3);
 
 However, the following gives a result of 1:
 
-```
+```sql
 SELECT (4 / 3);
 ```
 
@@ -325,7 +325,7 @@ SQL assumes that if you divide an integer by an integer, you want to get an inte
 
 If you want more precision when dividing, you can add decimal places to your numbers. For example,
 
-```
+```sql
 SELECT (4.0 / 3.0) AS result;
 ```
 
@@ -338,7 +338,7 @@ gives you the result you would expect: 1.333.
 
 For example, in the above example we could use aliases to make the result clearer:
 
-```
+```sql
 SELECT MAX(budget) AS max_budget,
        MAX(duration) AS max_duration
 FROM films;
