@@ -1,7 +1,7 @@
 # Lesson - 1
 
 * SQL, which stands for Structured Query Language, is a language for interacting with data stored in something called a relational database.
-* You can think of a relational database as a collection of tables. A table is just a set of rows and columns, like a spreadsheet, which 	represents exactly one type of **entity**.
+* You can think of a relational database as a collection of tables. A table is just a set of rows and columns, like a spreadsheet, which 	represents exactly one type of **entity**.                  
 * For example, a table might represent employees in a company or purchases made, but not both.
 
 * Each row, or record, of a table contains information about a single **entity**.
@@ -74,13 +74,14 @@ FROM people;
 
 ### WHERE
 
+```
 * = equal
 * <> not equal
 * < less than
 * > greater than
 *  <= less than or equal to
 *  >= greater than or equal to
-
+```
 **Use <> and not != for the not equal operator, as per the SQL standard.**
 
 Ex-
@@ -268,3 +269,78 @@ WHERE name NOT LIKE 'A%';
 
 
 # Lesson - 3
+
+### Aggregate functions
+
+For example,
+
+```
+SELECT AVG(budget)
+FROM films;
+```
+
+gives you the average value from the budget column of the films table. Similarly, the MAX function returns the highest budget:
+
+```
+SELECT MAX(budget)
+FROM films;
+```
+
+The SUM function returns the result of adding up the numeric values in a column:
+
+```
+SELECT SUM(budget)
+FROM films;
+```
+
+You can probably guess what the MIN function does! Now it's your turn to try out some SQL functions.
+
+### Combining aggregate functions with WHERE
+
+```
+SELECT SUM(budget)
+FROM films
+WHERE release_year >= 2010;
+```
+
+### A note on arithmetic
+
+In addition to using aggregate functions, you can perform basic arithmetic with symbols like + , -, * , and / .
+
+So, for example, this gives a result of 12:
+
+```
+SELECT (4 * 3);
+```
+
+However, the following gives a result of 1:
+
+```
+SELECT (4 / 3);
+```
+
+What's going on here?
+
+SQL assumes that if you divide an integer by an integer, you want to get an integer back. So be careful when dividing!
+
+If you want more precision when dividing, you can add decimal places to your numbers. For example,
+
+```
+SELECT (4.0 / 3.0) AS result;
+```
+
+gives you the result you would expect: 1.333.
+
+
+### It's AS simple AS aliasing
+
+ SQL allows you to do something called aliasing. Aliasing simply means you assign a temporary name to something. To alias, you use the AS keyword, which you've already seen earlier in this course.
+
+For example, in the above example we could use aliases to make the result clearer:
+
+```
+SELECT MAX(budget) AS max_budget,
+       MAX(duration) AS max_duration
+FROM films;
+```
+
