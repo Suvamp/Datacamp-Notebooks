@@ -353,7 +353,7 @@ In SQL, the **ORDER BY** keyword is used to sort results in ascending or descend
 
 By default ORDER BY will sort in ascending order. If you want to sort the results in descending order, you can use the DESC keyword. For example,
 
-```
+```sql
 SELECT title
 FROM films
 ORDER BY release_year DESC;
@@ -361,7 +361,7 @@ ORDER BY release_year DESC;
 gives you the titles of films sorted by release year, from newest to oldest.
 
 
-```
+```sql
 SELECT title, gross
 FROM films  
 --WHERE release_year NOT IN (2015)
@@ -372,7 +372,7 @@ ORDER BY release_year;
 
 ### Sorting single columns (DESC)
 
-```
+```sql
 SELECT imdb_score
 FROM reviews
 ORDER BY imdb_score DESC
@@ -382,7 +382,7 @@ ORDER BY imdb_score DESC
 
 ORDER BY can also be used to sort on multiple columns. It will sort by the first column specified, then sort by the next, then the next, and so on. For example,
 
-```
+```sql
 SELECT birthdate, name
 FROM people
 ORDER BY birthdate, name;
@@ -393,7 +393,7 @@ ORDER BY birthdate, name;
 
 In SQL, GROUP BY allows you to group a result by one or more columns, like so:
 
-```
+```sql
 SELECT sex, count(*)
 FROM employees
 GROUP BY sex;
@@ -405,7 +405,7 @@ A word of warning: SQL will return an error if you try to SELECT a field that is
 
 Note that you can combine GROUP BY with ORDER BY to group your results, calculate something about them, and then order your results. For example,
 
-```
+```sql
 SELECT sex, count(*)
 FROM employees
 GROUP BY sex
@@ -414,7 +414,7 @@ ORDER BY count DESC;
 
 Get the release year and average duration of all films, grouped by release year.
 
-```
+```sql
 SELECT release_year, AVG(duration)
 FROM films
 GROUP BY release_year
@@ -423,7 +423,7 @@ GROUP BY release_year
 
 Get the language and total gross amount films in each language made.
 
-```
+```sql
 SELECT language, SUM(gross)
 FROM films
 GROUP BY language;
@@ -431,7 +431,7 @@ GROUP BY language;
 
 Get the release year, country, and highest budget spent making a film for each year, for each country. Sort your results by release year and country.
 
-```
+```sql
 SELECT release_year, country, MAX(budget)
 FROM films
 GROUP BY release_year, country
@@ -458,11 +458,38 @@ HAVING COUNT(title) > 10;
 
 Now you're going to write a query that returns the average budget and average gross earnings for films in each year after 1990, if the average budget is greater than $60 million.
 
-```
+```sql
 SELECT release_year, AVG(budget) AS avg_budget, AVG(gross) AS avg_gross
 FROM films
 WHERE release_year > 1990 
 GROUP BY release_year
 HAVING  AVG(budget) > 60000000
 ORDER BY avg_gross DESC;
+```
+
+Get the country, average budget, and average gross take of countries that have made more than 10 films. Order the result by country name, and limit the number of results displayed to 5. You should alias the averages as avg_budget and avg_gross respectively.
+
+```sql
+-- select country, average budget, average gross
+SELECT country,AVG(budget) as avg_budget, AVG(gross) as avg_gross
+-- from the films table
+FROM films
+-- group by country 
+GROUP BY country
+-- where the country has a title count greater than 10
+HAVING COUNT(title) > 10
+-- order by country
+ORDER BY country
+-- limit to only show 5 results
+LIMIT 5 
+```
+
+Other query
+
+```sql
+SELECT title, imdb_score
+FROM films
+JOIN reviews
+ON films.id = reviews.film_id
+WHERE title = 'To Kill a Mockingbird';
 ```
