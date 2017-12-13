@@ -344,3 +344,125 @@ SELECT MAX(budget) AS max_budget,
 FROM films;
 ```
 
+
+# Lesson - 4
+
+### ORDER BY 
+
+In SQL, the **ORDER BY** keyword is used to sort results in ascending or descending order according to the values of one or more columns.
+
+By default ORDER BY will sort in ascending order. If you want to sort the results in descending order, you can use the DESC keyword. For example,
+
+```
+SELECT title
+FROM films
+ORDER BY release_year DESC;
+```
+gives you the titles of films sorted by release year, from newest to oldest.
+
+
+```
+SELECT title, gross
+FROM films  
+--WHERE release_year NOT IN (2015)
+WHERE title LIKE 'M%'
+ORDER BY release_year;
+```
+
+
+### Sorting single columns (DESC)
+
+```
+SELECT imdb_score
+FROM reviews
+ORDER BY imdb_score DESC
+```
+
+### Sorting multiple columns
+
+ORDER BY can also be used to sort on multiple columns. It will sort by the first column specified, then sort by the next, then the next, and so on. For example,
+
+```
+SELECT birthdate, name
+FROM people
+ORDER BY birthdate, name;
+```
+
+
+### GROUP BY
+
+In SQL, GROUP BY allows you to group a result by one or more columns, like so:
+
+```
+SELECT sex, count(*)
+FROM employees
+GROUP BY sex;
+```
+
+Commonly, **GROUP BY** is used with aggregate functions like **COUNT()** or **MAX()**. Note that **GROUP BY** always goes after the **FROM** clause!
+
+A word of warning: SQL will return an error if you try to SELECT a field that is not in your GROUP BY clause without using it to calculate some kind of value about the entire group.
+
+Note that you can combine GROUP BY with ORDER BY to group your results, calculate something about them, and then order your results. For example,
+
+```
+SELECT sex, count(*)
+FROM employees
+GROUP BY sex
+ORDER BY count DESC;
+```
+
+Get the release year and average duration of all films, grouped by release year.
+
+```
+SELECT release_year, AVG(duration)
+FROM films
+GROUP BY release_year
+```
+
+
+Get the language and total gross amount films in each language made.
+
+```
+SELECT language, SUM(gross)
+FROM films
+GROUP BY language;
+```
+
+Get the release year, country, and highest budget spent making a film for each year, for each country. Sort your results by release year and country.
+
+```
+SELECT release_year, country, MAX(budget)
+FROM films
+GROUP BY release_year, country
+ORDER BY release_year, country;
+```
+
+HAVING a great time
+In SQL, aggregate functions can't be used in WHERE clauses. For example, the following query is invalid:
+
+```sql
+SELECT release_year
+FROM films
+GROUP BY release_year
+WHERE COUNT(title) > 10;
+```
+This means that if you want to filter based on the result of an aggregate function, you need another way! That's where the HAVING clause comes in. For example,
+
+```sql
+SELECT release_year
+FROM films
+GROUP BY release_year
+HAVING COUNT(title) > 10;
+```
+
+Now you're going to write a query that returns the average budget and average gross earnings for films in each year after 1990, if the average budget is greater than $60 million.
+
+```
+SELECT release_year, AVG(budget) AS avg_budget, AVG(gross) AS avg_gross
+FROM films
+WHERE release_year > 1990 
+GROUP BY release_year
+HAVING  AVG(budget) > 60000000
+ORDER BY avg_gross DESC;
+```
